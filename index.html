@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MA→GCC Sentinel | Jihan Lahmar</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    header {
+      border-bottom: 2px solid #003366;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+    h1 {
+      color: #003366;
+      margin: 0;
+    }
+    .metric {
+      background: #f8f9fa;
+      padding: 12px;
+      margin: 12px 0;
+      border-left: 4px solid #007acc;
+      border-radius: 0 4px 4px 0;
+    }
+    footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      font-size: 0.9em;
+      color: #666;
+    }
+    .social-links a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #007acc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🇲🇦→🇸🇦🇦🇪 MOROCCO-GULF SENTINEL</h1>
+    <p>Weekly ground-truth validation for Gulf capital flows in North Africa</p>
+  </header>
+
+  <div id="report">Loading latest report...</div>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://linkedin.com/in/jihanlahmar" target="_blank">LinkedIn</a>
+      <a href="https://twitter.com/jihanlahmar" target="_blank">Twitter</a>
+      <a href="https://sites.google.com/view/jihanlahmar-research" target="_blank">Research Archive</a>
+    </div>
+    <p>© 2026 Jihan Lahmar | Sovereign Investment Strategist – North Africa</p>
+    <p>Data updated weekly. Refresh to load latest.</p>
+  </footer>
+
+  <script>
+    // Fetch your JSON from Gist (you'll update this weekly)
+    fetch('https://gist.githubusercontent.com/jihanlahmar/YOUR_GIST_ID/raw/sentinel.json')
+      .then(response => response.json())
+      .then(data => {
+        let html = `<p><strong>Report Date:</strong> ${data.date}</p>`;
+        
+        // FX Section
+        html += `<div class="metric"><strong>FX Rates (vs USD):</strong><br>
+          MAD: ${data.fx.MAD_USD} | SAR: ${data.fx.SAR_USD} | AED: ${data.fx.AED_USD}
+        </div>`;
+
+        // Port Section
+        html += `<div class="metric"><strong>Port Congestion:</strong><br>
+          Tanger Med: ${data.ports.tanger_med} ships | Dakhla: ${data.ports.dakhla} ships
+        </div>`;
+
+        // Ground Truth
+        html += `<div class="metric"><strong>Ground Observations:</strong><br>
+          UAE Influencer Activity: ${data.ground.uae_influencers}<br>
+          Sub-Saharan Labor Sightings: ${data.ground.labor_sightings}
+        </div>`;
+
+        // News
+        html += `<div class="metric"><strong>News Alerts:</strong><br>
+          PIF: ${data.news.pif} | ADQ: ${data.news.adq} | OCP: ${data.news.ocp}
+        </div>`;
+
+        document.getElementById('report').innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById('report').innerHTML = '<p style="color:red;">⚠️ Failed to load report. Check Gist URL.</p>';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
